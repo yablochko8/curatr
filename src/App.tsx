@@ -3,9 +3,10 @@ import './App.css'
 import { GameRound, GameState } from './types'
 import { StartButton } from './components/StartButton'
 import { GameInPlay } from './components/GameInPlay'
+import { startingGameState } from './startingSample'
 
 function App() {
-  const [gameState, setGameState] = useState<GameState | null>(null)
+  const [gameState, setGameState] = useState<GameState>(startingGameState)
 
   const setGameRound = (gameRound: GameRound) => {
     console.log("handle any update to the state of the game, specific to that round")
@@ -23,15 +24,15 @@ function App() {
 
   return (
     <>
-      {gameState?.currentRound && (
+      {gameState.currentRound && (
         <GameInPlay
           gameRound={gameState.currentRound}
           setGameRound={setGameRound}
           moveToNextRound={moveToNextRound} />
       )}
 
-      {!gameState && (
-        <StartButton setGameState={setGameState} />
+      {!gameState.currentRound && (
+        <StartButton gameState={gameState} setGameState={setGameState} />
       )}
     </>
   )
