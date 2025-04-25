@@ -5,10 +5,17 @@ export const StartButton = ({ gameState, setGameState }: { gameState: GameState,
     const handleClick = () => {
         console.log("handleClick", gameState)
 
-        // Identify which is the next round that has not been played
-        const hasPlayed = gameState.rounds.some((round) => round.userGuess)
+        // Check if any round has been played 
         const firstRound = gameState.rounds[0]
-        const nextRound = hasPlayed ? gameState.rounds.find((round) => !round.userGuess) : firstRound
+        const hasPlayed = gameState.rounds.some((round) =>
+            round.userGuess &&
+            (round.userGuess.leftSorted.length > 0 || round.userGuess.rightSorted.length > 0)
+        )
+
+        // If we've played any rounds, find the next unplayed round, otherwise use the first round
+        const nextRound = hasPlayed ?
+            gameState.rounds.find((round) => !round.userGuess || Object.keys(round.userGuess).length === 0) :
+            firstRound
 
         if (nextRound) {
             console.log("nextRound found", nextRound)
