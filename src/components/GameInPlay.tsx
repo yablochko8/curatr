@@ -13,24 +13,34 @@ export const GameInPlay = ({ gameRound, setGameRound, moveToNextRound }: Gallery
     const { userGuess } = gameRound
 
     const onGuess = (artwork: Artwork, side: string) => {
-        // TODO: Make sure this correctly updates state
-        console.log("onGuess", artwork, side)
+        // Remove artwork from notSorted
+        const updatedNotSorted = userGuess.notSorted.filter(a => a.id !== artwork.id);
+
+        // Add to appropriate sorted array
+        const updatedUserGuess = {
+            ...userGuess,
+            notSorted: updatedNotSorted,
+            [side === 'left' ? 'leftSorted' : 'rightSorted']: [...userGuess[side === 'left' ? 'leftSorted' : 'rightSorted'], artwork]
+        };
+
         setGameRound({
             ...gameRound,
-            userGuess: {
-                ...userGuess,
-                [side]: artwork
-            }
-        })
-        if (userGuess.leftSorted.length === 3 && userGuess.rightSorted.length === 3) {
-            moveToNextRound()
+            userGuess: updatedUserGuess
+        });
+
+        if (updatedUserGuess.leftSorted.length === 3 && updatedUserGuess.rightSorted.length === 3) {
+            moveToNextRound();
         }
     }
 
     return (
         <>
-            <Gallery userGuess={userGuess} />
-            <Crate notSorted={userGuess.notSorted} onGuess={onGuess} />
+            <div className="flex flex-row h-1/2 w-full">
+                <Gallery userGuess={userGuess} />
+            </div>
+            <div className="flex flex-row h-1/2 w-full">
+                <Crate notSorted={userGuess.notSorted} onGuess={onGuess} />
+            </div>
         </>
     )
 }

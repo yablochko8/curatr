@@ -23,7 +23,7 @@ function App() {
   }
 
   return (
-    <>
+    <div className="flex flex-col h-screen w-screen">
       {gameState.currentRound && (
         <GameInPlay
           gameRound={gameState.currentRound}
@@ -34,7 +34,7 @@ function App() {
       {!gameState.currentRound && (
         <StartButton gameState={gameState} setGameState={setGameState} />
       )}
-    </>
+    </div>
   )
 }
 
