@@ -10,7 +10,7 @@ export const Crate = ({ notSorted, onGuess }: { notSorted: Artwork[], onGuess: (
                     <button onClick={() => onGuess(notSorted[0], "left")}>Left</button>
                     <button onClick={() => onGuess(notSorted[0], "right")}>Right</button>
                 </div>
-                <img className="w-60" src={notSorted[0].imageUrl} alt={notSorted[0].title} />
+                <img className="h-full p-4" src={notSorted[0].imageUrl} alt={notSorted[0].title} />
             </div>
             {/* Show the rest of the images in a grid, with no buttons */}
             <div className="flex flex-col p-8 gap-4">
