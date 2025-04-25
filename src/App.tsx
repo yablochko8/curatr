@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import { GameRound, GameState } from './types'
 import { StartButton } from './components/StartButton'
-import { Gallery } from './components/Gallery'
+import { GameInPlay } from './components/GameInPlay'
 
 function App() {
   const [gameState, setGameState] = useState<GameState | null>(null)
@@ -24,7 +24,7 @@ function App() {
   return (
     <>
       {gameState?.currentRound && (
-        <Gallery
+        <GameInPlay
           gameRound={gameState.currentRound}
           setGameRound={setGameRound}
           moveToNextRound={moveToNextRound} />
