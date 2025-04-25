@@ -20,6 +20,32 @@ function App() {
 
   const moveToNextRound = () => {
     console.log("move to next round")
+
+    // Find the index of the current round
+    const currentRoundIndex = gameState.rounds.findIndex(round => round.id === gameState.currentRound?.id)
+
+    // TODO: Fix the fact that we're not saving the state of the current round into the rounds array
+
+    // Find the next round after the current one that hasn't been played
+    const nextRound = gameState.rounds.slice(currentRoundIndex + 1).find(round =>
+      round.userGuess.leftSorted.length === 0 && round.userGuess.rightSorted.length === 0
+    )
+
+    if (nextRound) {
+      console.log("nextRound found", nextRound)
+      setGameState({
+        ...gameState,
+        currentRound: nextRound,
+      })
+    }
+    else {
+      console.log("no nextRound found")
+      setGameState({
+        ...gameState,
+        isGameOver: true
+      })
+      return
+    }
   }
 
   return (

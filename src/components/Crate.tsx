@@ -1,7 +1,7 @@
 import { Artwork } from "../types"
 import { CrateQueueItem } from "./CrateQueueItem"
 
-export const Crate = ({ notSorted, onGuess }: { notSorted: Artwork[], onGuess: (artwork: Artwork, side: string) => void }) => {
+export const Crate = ({ notSorted, onGuess, onNext }: { notSorted: Artwork[], onGuess: (artwork: Artwork, side: string) => void, onNext: () => void }) => {
     return (
         <div className="flex flex-row w-full border-t-2 border-black p-8 justify-center">
             {/* Show the next image really big, with buttons below it */}
@@ -20,6 +20,11 @@ export const Crate = ({ notSorted, onGuess }: { notSorted: Artwork[], onGuess: (
                     <CrateQueueItem artwork={artwork} />
                 ))}
             </div>
+            {
+                notSorted.length === 0 && (
+                    <button onClick={onNext}>Next Round</button>
+                )
+            }
         </div>
     )
 }

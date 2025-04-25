@@ -39,7 +39,7 @@ export const GameInPlay = ({ gameRound, setGameRound, moveToNextRound }: Gallery
                 <Gallery userGuess={userGuess} />
             </div>
             <div className="flex flex-row h-1/2 w-full">
-                <Crate notSorted={userGuess.notSorted} onGuess={onGuess} />
+                <Crate notSorted={userGuess.notSorted} onGuess={onGuess} onNext={moveToNextRound} />
             </div>
         </>
     )
