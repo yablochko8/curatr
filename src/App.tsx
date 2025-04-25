@@ -1,33 +1,38 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { GameRound, GameState } from './types'
+import { StartButton } from './components/StartButton'
+import { Gallery } from './components/Gallery'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [gameState, setGameState] = useState<GameState | null>(null)
+
+  const setGameRound = (gameRound: GameRound) => {
+    console.log("handle any update to the state of the game, specific to that round")
+    setGameState({
+      currentRound: gameRound,
+      rounds: gameState?.rounds || [],
+      totalPoints: gameState?.totalPoints || 0,
+      isGameOver: gameState?.isGameOver || false
+    })
+  }
+
+  const moveToNextRound = () => {
+    console.log("move to next round")
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {gameState?.currentRound && (
+        <Gallery
+          gameRound={gameState.currentRound}
+          setGameRound={setGameRound}
+          moveToNextRound={moveToNextRound} />
+      )}
+
+      {!gameState && (
+        <StartButton setGameState={setGameState} />
+      )}
     </>
   )
 }
